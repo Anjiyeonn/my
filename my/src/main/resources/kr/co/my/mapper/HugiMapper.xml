@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybats-3-mapper.dtd">
+ 
+<mapper namespace="kr.co.my.mapper.HugiMapper">
+
+   <select id="getProduct" resultType="kr.co.my.vo.ProductVo">
+     select pimg, title, pcode from product 
+     where pcode=(select pcode from gumae where id=#{param})
+   </select>
+   
+   <insert id="hugi_ok" parameterType="kr.co.my.vo.HugiVo">
+     insert into hugi(pcode, guid, title, userid, content, fname1, fname2, writeday)
+     values(#{pcode}, #{guid}, #{title}, #{userid}, #{content}, #{fname1}, #{fname2}, now())
+   </insert>
+   
+   <update id="setHugi">
+     update gumae set hugi=1 where id=#{param}
+   </update>
+   
+   <update id="chgstate">
+     update gumae set state=#{state} where id=#{id}
+   </update>
+   
+   <select id="hlist" resultType="kr.co.my.vo.HugiVo">
+     select * from hugi order by id desc limit #{param},10
+   </select>
+   
+   <select id="getChong" resultType="Integer">
+    select ceil( count(*)/10 ) from hugi
+  </select>
+   
+   <select id="hugi_content" resultType="kr.co.my.vo.HugiVo">
+     select * from hugi where id=#{param}
+   </select>
+   
+   <select id="hugi_delete">
+     delete from hugi where id=#{param}
+   </select>
+   
+   
+</mapper>

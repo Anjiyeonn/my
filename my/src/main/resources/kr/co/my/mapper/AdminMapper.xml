@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybats-3-mapper.dtd">
+  
+<mapper namespace="kr.co.my.mapper.AdminMapper">
+	<select id="admingongji" resultType="kr.co.my.vo.GongjiVo">
+		select * from gongji order by chk desc, id desc limit #{param},10
+	</select>
+	
+	<select id="getChong" resultType="int">
+		select ceil(count(*)/10) from gongji
+	</select>
+	
+	<select id="gongji_up" resultType="kr.co.my.vo.GongjiVo">
+		select * from gongji where id=#{param}
+	</select>
+	
+	<update id="gongji_up_ok" parameterType="kr.co.my.vo.GongjiVo">
+		update gongji set title=#{title}, content=#{content}, chk=#{chk} where id=#{id}
+	</update>
+	
+	<delete id="gongji_del">
+		delete from gongji where id=#{param}
+	</delete>
+	
+	<select id="admin_member" resultType="kr.co.my.vo.MemberVo">
+		select * from member where userid!='admin' order by id desc limit #{param},10
+	</select>
+	
+	<select id="getMChong" resultType="int">
+		select ceil(count(*)/10) from member
+	</select>
+	
+	<update id="memberout">
+ 		update member set state=2 where id=#{param}
+ 	</update>
+ 	
+ 	<select id="getEChong" resultType="int">
+		select ceil(count(*)/10) from event
+	</select>
+	
+	<select id="admin_event" resultType="kr.co.my.vo.EventVo">
+		select * from event order by id desc limit #{param},10
+	</select>
+	
+	<select id="event_up" resultType="kr.co.my.vo.EventVo">
+		select * from event where id=#{param}
+	</select>
+	
+	<update id="event_up_ok" parameterType="kr.co.my.vo.EventVo">
+		update event set title=#{title}, subtitle=#{subtitle}, eimg=#{eimg}, map=#{map}, 
+		eimg2=#{eimg2}, elistimg=#{elistimg}, content=#{content}, gigan=#{gigan}
+		where id=#{id}
+	</update>
+	
+	<delete id="event_del">
+		delete from event where id=#{param}
+	</delete>
+	
+	<select id="getAChong" resultType="int">
+		select ceil(count(*)/10) from attraction
+	</select>
+	
+	<select id="admin_atr" resultType="kr.co.my.vo.AttractionVo">
+		select * from attraction order by id desc limit #{param},10
+	</select>
+	
+	<delete id="atr_del">
+		delete from attraction where id=#{param}
+	</delete>
+	
+	<select id="atr_up" resultType="kr.co.my.vo.AttractionVo">
+		select * from attraction where id=#{param}
+	</select>
+	
+	<update id="atr_up_ok" parameterType="kr.co.my.vo.AttractionVo">
+		update attracion set title=#{title}, aimg=#{aimg}, alistimg=#{alistimg}, content=#{content},
+		inwon=#{inwon}, time=#{time}, jehan=#{jehan}, map=#{map}
+		where id=#{id}
+	</update>
+	<update id="chgastate">
+		update attraction set state=#{param1} where id=#{param2}
+	</update>
+	
+	<select id="admin_hugi" resultType="kr.co.my.vo.HugiVo">
+		select * from hugi order by id desc limit #{param},10
+	</select>
+	
+	<select id="getHChong" resultType="int">
+		select ceil(count(*)/10) from hugi
+	</select>
+	
+	<select id="getGChong" resultType="int">
+		select ceil(count(*)/10) from gumae
+	</select>
+	
+	<select id="admin_ticket" resultType="HashMap">
+		select g.jumuncode,g.id, g.userid, g.su, g.cprice, g.day, g.pay, g.state, g.writeday,m.name, p.title from gumae as g
+		inner join member as m on g.userid=m.userid
+		inner join product as p on g.pcode=p.pcode order by g.id desc limit #{param},10
+	</select>
+	<update id="chgtstate">
+		update gumae set state=#{param2} where id=#{param1}
+	</update>
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybats-3-mapper.dtd">
+  
+<mapper namespace="kr.co.my.mapper.MainMapper">
+
+<select id="main_gongji" resultType="kr.co.my.vo.GongjiVo">
+	select * from gongji where chk=1 order by id desc
+</select>
+<select id="main_event" resultType="kr.co.my.vo.EventVo">
+	select * from event order by id desc
+</select>
+</mapper>
