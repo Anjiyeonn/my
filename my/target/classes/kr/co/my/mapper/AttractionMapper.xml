@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybats-3-mapper.dtd">
+  
+<mapper namespace="kr.co.my.mapper.AttractionMapper">
+	<insert id="attraction_ok" parameterType="kr.co.my.vo.AttractionVo">
+		insert into attraction(title,aimg,alistimg,content,inwon,time,jehan,map,writeday)
+		values(#{title},#{aimg},#{alistimg},#{content},#{inwon},#{time},#{jehan},#{map},now())
+	</insert>
+	<select id="attraction_list" resultType="kr.co.my.vo.AttractionVo">
+		select * from attraction limit #{param},15
+	</select>
+	
+	<select id="attraction_content" resultType="kr.co.my.vo.AttractionVo">
+		select * from attraction where id=#{param}
+	</select>
+	
+	<select id="getChong" resultType="int">
+		select ceil(count(*)/15) from attraction
+	</select>
+</mapper>

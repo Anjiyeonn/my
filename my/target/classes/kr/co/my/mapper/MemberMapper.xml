@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybats-3-mapper.dtd">
+ 
+<mapper namespace="kr.co.my.mapper.MemberMapper">
+
+  <select id="userid_check" resultType="int">
+    select count(*) from member where userid=#{param}
+  </select>
+  
+  <insert id="member_input_ok" parameterType="kr.co.my.vo.MemberVo">
+    insert into member(userid, name, pwd, phone, email, juso, juso_etc, zip, writeday)
+    values(#{userid}, #{name}, #{pwd}, #{phone}, #{email}, #{juso}, #{juso_etc},#{zip}, now())
+  </insert>
+  
+  <select id="member_view" resultType="kr.co.my.vo.MemberVo">
+    select * from member where userid=#{param}
+  </select>
+  
+  <select id="member_edit" resultType="kr.co.my.vo.MemberVo">
+    select * from member where userid=#{param}
+  </select>
+  
+  <update id="member_edit_ok" parameterType="kr.co.my.vo.MemberVo">
+    update member set phone=#{phone},email=#{email},zip=#{zip},juso=#{juso},juso_etc=#{juso_etc} where userid=#{userid}
+  </update>
+  
+  <update id="out">
+    update member set state=1 where userid=#{param}
+  </update>
+  
+  
+  <!-- 카트 -->
+  <select id="cart_view" resultType="kr.co.my.vo.CartVo">
+     select p.halin, p.pcode, p.pimg, p.title, p.price, c.id, c.writeday, c.su, c.day 
+     from cart as c, product as p 
+     where userid=#{param} and c.pcode=p.pcode and c.day
+  </select>
+   
+  <delete id="cart_del">
+     delete from cart where id=#{param}
+  </delete>
+   
+  <select id="cart_check" resultType="int">
+     select count(*) from cart where pcode=#{param1} and userid=#{param2} and day=#{param3}
+  </select>
+   
+  <update id="cart_up">
+     update cart set su=su+1 where pcode=#{param1} and userid=#{param2} and day=#{param3}
+  </update>
+   
+  <update id="cart_su">
+     update cart set su=#{param1} where pcode=#{param2} and userid=#{param3} and day=#{param4}
+  </update>
+  
+  
+  <!-- 주문내역 -->
+  <select id="jumun_view" resultType="HashMap">
+     select g.jumuncode, g.id, g.writeday, p.pimg, p.title, g.su, g.cprice, g.state, g.hugi, g.day
+     from gumae as g, product as p
+     where g.userid=#{param} and g.pcode=p.pcode
+     order by g.writeday desc, g.id desc
+  </select>
+   
+  <update id="chgstate">
+     update gumae set state=#{state} where id=#{id}
+  </update>
+  
+</mapper>
+
+
+
+
+
+
