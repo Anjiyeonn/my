@@ -20,10 +20,10 @@ public class MainCotroller {
 		return service.main(model);
 	}
 	
-	@RequestMapping("/main/universal")
-	public String universals()
+	@RequestMapping("/main/uni")
+	public String uni()
 	{
-		return "/main/universal";
+		return "/main/uni";
 	}
 	
 	@RequestMapping("/main/enjoy")

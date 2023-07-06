@@ -252,7 +252,7 @@
     <ul id="main">
      <li class="menu" onmouseover="view_sub(0)" onmouseout="hide_sub(0)"> <span id="mainmenu"> 유니버설 </span> 
      	<ul class="sub">
-     	  <li> <a href="../main/universal"> 유니버설 소개 </a></li>
+     	  <li> <a href="../main/uni"> 유니버설 소개 </a></li>
      	  <li> <a href="../map/map"> 찾아오는 길 </a></li>
      	  <li> <a href="../map/maps"> 파크 맵 </a></li>
      	</ul>
